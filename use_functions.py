@@ -45,6 +45,9 @@ total = float(0)  # сумма на счету пользователя
 purchase_history = [[n_operatin, operatin, debit, credit, total], ]  # история покупок
 total_debit = float(0)
 total_credit = float(0)
+def separator(simbol, count):
+    k = simbol * count
+    print(k)
 while True:
     print('1. пополнение счета')
     print('2. покупка')
@@ -61,7 +64,6 @@ while True:
         purchase_history.append([n_operatin, operatin, debit, credit, total])
         total_debit = total_debit+debit
     elif choice == '2':
-        n_operatin = n_operatin + 1  # номер операции со счетом
         debit = float(0)  # приход по счету пользователя
         credit = float(input('Введите цену покупки: '))  # расход по счету пользователя
         if credit > total:
@@ -69,26 +71,28 @@ while True:
         else:
             operatin = input('Введите название покупки: ')  # описание операции со счетом
             total = total - credit  # сумма на счету пользователя
+            n_operatin = n_operatin + 1  # номер операции со счетом
             purchase_history.append([n_operatin, operatin, debit, credit, total])
             total_credit = total_credit+credit
     elif choice == '3':
-        width_n_operatin = 5  # ширина сроки - номер операции со счетом
-        width_operatin = 20   # ширина сроки -описание операции со счетом
-        width_debit = 10  # ширина сроки -приход по счету пользователя
-        width_credit = 10  # ширина сроки -расход по счету пользователя
-        width_total = 10  # ширина сроки -сумма на счету пользователя
+        width_n_operatin = 5  # ширина столбца - номер операции со счетом
+        width_operatin = 20   # ширина столбца -описание операции со счетом
+        width_debit = 10  # ширина столбца -приход по счету пользователя
+        width_credit = 10  # ширина столбца -расход по счету пользователя
+        width_total = 10  # ширина столбца -сумма на счету пользователя
         print('N      операция              приход      расход      итог ')
+        separator('*', 60)
         for i in purchase_history:
-            tail_width_n_operatin = ' '*(5-len(str(i[0]))) # выравнивание по сроке - номер операции со счетом
-            tail_width_operatin = ' '*(20- len(i[1]))  # выравнивание по сроке -описание операции со счетом
-            tail_width_debit = ' '*(10-len(str(i[2])))  # выравнивание по сроке -приход по счету пользователя
-            tail_width_credit = ' '*(10-len(str(i[3])))  # выравнивание по сроке -расход по счету пользователя
-            tail_width_total = ' '*(10-len(str(i[4])))  # выравнивание по сроке -сумма на счету пользователя
+            tail_width_n_operatin = ' '*(width_n_operatin-len(str(i[0]))) # выравнивание по сроке - номер операции со счетом
+            tail_width_operatin = ' '*(width_operatin- len(i[1]))  # выравнивание по сроке -описание операции со счетом
+            tail_width_debit = ' '*(width_debit-len(str(i[2])))  # выравнивание по сроке -приход по счету пользователя
+            tail_width_credit = ' '*(width_credit-len(str(i[3])))  # выравнивание по сроке -расход по счету пользователя
+            tail_width_total = ' '*(width_total-len(str(i[4])))  # выравнивание по сроке -сумма на счету пользователя
             print(f'{i[0]} {tail_width_n_operatin} {i[1]} {tail_width_operatin} {i[2]} {tail_width_debit} '
                    f'{i[3]} {tail_width_credit} {i[4]} {tail_width_total} ')
+            separator('-', 60)
         print(f'       ИТОГО                 {total_debit}         {total_credit}         {i[4]} ')
     elif choice == '4':
-        n_operatin = n_operatin + 1  # номер операции со счетом
         debit = float(0)  # приход по счету пользователя
         credit = float(input('Введите сумму для снятия: '))  # расход по счету пользователя
         if credit > total:
@@ -96,6 +100,7 @@ while True:
         else:
             operatin = 'выдача наличных '  # описание операции со счетом
             total = total - credit  # сумма на счету пользователя
+            n_operatin = n_operatin + 1  # номер операции со счетом
             purchase_history.append([n_operatin, operatin, debit, credit, total])
             total_credit = total_credit+credit
     elif choice == '5':
